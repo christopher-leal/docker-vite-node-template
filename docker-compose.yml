@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "3001:3001"
+
+  frontend:
+    image: frontend
+    build:
+      context: ./frontend
+    ports:
+      - "5173"
+      - "3001"
+    volumes:
+      - ./frontend/src:/app/src
+
+  backend:
+    image: backend
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
